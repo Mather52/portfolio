@@ -361,3 +361,13 @@ if (profilePhoto) {
   profilePhoto.addEventListener("load", start);   // تشتغل أيضاً لو انحمّلت الصورة من المسار الثاني
   if (profilePhoto.complete) start();
 }
+
+/* ---------- 10) إخفاء الشريط العلوي عند النزول (في الجوال) ---------- */
+// ننزل: نخفي الشريط عشان ما يغطي المحتوى. نصعد: يرجع يظهر
+// الإخفاء نفسه يتم في style.css وبس على شاشات الجوال، وعلى الكمبيوتر يبقى ثابت
+let lastScrollY = 0;
+addEventListener("scroll", () => {
+  const goingDown = scrollY > lastScrollY && scrollY > 120;
+  find(".nav").classList.toggle("hide", goingDown);
+  lastScrollY = scrollY;
+}, { passive: true });
