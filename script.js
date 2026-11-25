@@ -352,7 +352,12 @@ function removeWhiteBackground(img) {
 
 const profilePhoto = find(".avatar img");
 if (profilePhoto) {
-  const start = () => { if (profilePhoto.naturalWidth) removeWhiteBackground(profilePhoto); };
+  const start = () => {
+    if (profilePhoto.naturalWidth && !profilePhoto.dataset.cut) {   // نقصّها مرة وحدة فقط
+      profilePhoto.dataset.cut = "1";
+      removeWhiteBackground(profilePhoto);
+    }
+  };
+  profilePhoto.addEventListener("load", start);   // تشتغل أيضاً لو انحمّلت الصورة من المسار الثاني
   if (profilePhoto.complete) start();
-  else profilePhoto.addEventListener("load", start, { once: true });
 }
